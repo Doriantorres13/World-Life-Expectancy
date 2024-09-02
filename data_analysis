@@ -3,7 +3,7 @@
 SELECT * 
 FROM world_life_expectancy;
 
-#we are examing which countries have improved their life expectancy the most 
+#we are examining which countries have improved their life expectancy the most 
 SELECT Country, MIN(`Life expectancy`), MAX(`Life expectancy`)
 FROM world_life_expectancy
 GROUP BY Country
