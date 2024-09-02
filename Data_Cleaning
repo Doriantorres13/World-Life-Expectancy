@@ -32,31 +32,31 @@ FROM (
 WHERE Row_Num > 1)
 ;
 
-#we see that there are some blank spaces in the status column
+#We see that there are some blank spaces in the status column
 SELECT * 
 FROM world_life_expectancy; 
 
-#we are seeing now how many blank rows are in the Status column
+#We are seeing now how many blank rows are in the Status column
 SELECT * 
 FROM world_life_expectancy
 WHERE Status = ''
 ; 
  
-#we see there are only two options that go into the Status column
+#We see there are only two options that go into the Status column
 SELECT DISTINCT(Status)
 FROM world_life_expectancy
 WHERE Status <> ''
 ; 
 
-#these are all our countries where the Status is Developing
+#These are all our countries where the Status is Developing
 SELECT DISTINCT(Country)
 FROM world_life_expectancy
 WHERE Status = 'Developing'
 ; 
 
-#were updating the world life expectancy table
-#were setting the the Status column equal to 'Developing' where the country is in the list provided in the subquery 
-#disclaimer we cannot run subqueries in a UPDATE 
+#Were updating the world life expectancy table
+#were setting the Status column equal to 'Developing' where the country is in the list provided in the subquery 
+#disclaimer we cannot run subqueries in an UPDATE 
 UPDATE world_life_expectancy
 SET Status = 'Developing'
 WHERE Country IN (
@@ -65,9 +65,9 @@ WHERE Country IN (
 	WHERE Status = 'Developing')
 ;
 
-#we are joining the world life expectancy to itself 
-#we are setting t1.Status equal to 'Developing' where it is blank in t1 but not blank in t2
-#where the country is still the same 
+#We are joining the world life expectancy to itself 
+#We are setting t1.Status equal to 'Developing' where it is blank in t1 but not blank in t2
+#Where the country is still the same 
 UPDATE world_life_expectancy AS t1
 JOIN world_life_expectancy AS t2
 	ON t1.Country = t2.Country
@@ -77,19 +77,19 @@ AND t2.Status <> ''
 AND t2.Status = 'Developing'
 ;
 
-#now we can see only one row did not run properly because it is not a Developing country it is a Developed country 
+#Now we can see only one row did not run properly because it is not a Developing country; it is a Developed country 
 SELECT * 
 FROM world_life_expectancy
 WHERE Status = ''
 ; 
 
-#we doubcle checked and can confirm the United States is a Developed country
+#We checked and can confirm the United States is a Developed country
 SELECT * 
 FROM world_life_expectancy
 WHERE Country = 'United States of America'
 ; 
 
-#we ran the exact same code as before but changed the wording to 'Developed' to fix the last Status row that needed to be changed 
+#We ran the exact same code as before but changed the wording to 'Developed' to fix the last Status row that needed to be changed 
 UPDATE world_life_expectancy AS t1
 JOIN world_life_expectancy AS t2
 	ON t1.Country = t2.Country
@@ -99,18 +99,18 @@ AND t2.Status <> ''
 AND t2.Status = 'Developed'
 ;
 
-#by looking at the data again we can see that there are some blanks in the Life expectancy column
+#By looking at the data again, we can see that there are some blanks in the Life expectancy column
 SELECT * 
 FROM world_life_expectancy;
 
-#as we can see there are two blanks in that column
+#As we can see, there are two blanks in that column
 SELECT *
 FROM world_life_expectancy
 WHERE `Life expectancy` = ''
 ;
 
-#we can see that as the year goes up the life expectancy gets a little bit higher. 
-#we can populate on this by taking the year before and after the blank row to get the average of the missing one 
+#We can see that as the year goes up, the life expectancy gets slightly higher. 
+#We can populate this by taking the year before and after the blank row to get the average of the missing one 
 SELECT Country, Year, `Life expectancy`
 FROM world_life_expectancy
 ;
@@ -140,7 +140,7 @@ SET t1.`Life expectancy` = ROUND((t2.`Life expectancy` + t3.`Life expectancy`) /
 WHERE t1.`Life expectancy`  = ''
 ;
 
-#we are double checking to see if it worked and it did
+#Double-checking to see if it worked, and it did
 SELECT Country, Year, `Life expectancy`
 FROM world_life_expectancy
 ;
