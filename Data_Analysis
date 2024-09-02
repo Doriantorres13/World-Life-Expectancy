@@ -1,0 +1,156 @@
+#World Life Expectancy Project (Exploratory Data Analysis)
+
+SELECT * 
+FROM world_life_expectancy;
+
+#we are examing which countried have improved their life expectancy the most 
+SELECT Country, MIN(`Life expectancy`), MAX(`Life expectancy`)
+FROM world_life_expectancy
+GROUP BY Country
+ORDER BY Country DESC;
+
+#we see there are some zeros so now we want to filter those out 
+SELECT Country, MIN(`Life expectancy`), MAX(`Life expectancy`)
+FROM world_life_expectancy
+GROUP BY Country
+HAVING MIN(`Life expectancy`) <> 0
+AND MAX(`Life expectancy`) <> 0
+ORDER BY Country DESC;
+
+#we are examing whhich countries have the highest increase from the minimum life expentancy to maximum life expexctancy 
+SELECT Country, MIN(`Life expectancy`),
+ MAX(`Life expectancy`),
+ ROUND(MAX(`Life expectancy`) - MIN(`Life expectancy`), 1) AS Life_Increase
+FROM world_life_expectancy
+GROUP BY Country
+HAVING MIN(`Life expectancy`) <> 0
+AND MAX(`Life expectancy`) <> 0
+ORDER BY Life_Increase DESC;
+
+#we are now looking at the average life expectancy across all countries for each year and we made sure to exclude the zeros so they dont mess up our averages
+SELECT Year, ROUND(AVG(`Life Expectancy`), 2)
+FROM world_life_expectancy
+WHERE`Life expectancy`<> 0
+AND `Life expectancy` <> 0
+GROUP BY Year
+ORDER BY Year;
+
+SELECT * 
+FROM world_life_expectancy;
+
+#we are looking to see if a higher GDP indicates a higher life expectancy
+SELECT Country, `Life expectancy`, GDP
+FROM world_life_expectancy;
+
+#we are looking at the averages of life expectancy and gdp to see the correlation
+SELECT Country, 
+ROUND(AVG(`Life expectancy`), 1) AS Life_Exp, 
+ROUND(AVG(GDP),2) AS GDP
+FROM world_life_expectancy
+GROUP BY Country;
+
+#we noticed there were some zeros so we wanted to pull all of the up 
+SELECT Country, 
+ROUND(AVG(`Life expectancy`), 1) AS Life_Exp, 
+ROUND(AVG(GDP),2) AS GDP
+FROM world_life_expectancy
+GROUP BY Country
+ORDER BY Life_Exp;
+
+
+#now we filtered out the zeros and ordering on GDP because we want to see the life expectancy for the lowest GDPs
+SELECT Country, 
+ROUND(AVG(`Life expectancy`), 1) AS Life_Exp, 
+ROUND(AVG(GDP),2) AS GDP
+FROM world_life_expectancy
+GROUP BY Country
+HAVING Life_Exp > 1
+AND GDP > 1
+ORDER BY GDP;
+
+#we ran the same code but switched the order by to descending order to see the GDPs for the highest life expectancy countries
+SELECT Country, 
+ROUND(AVG(`Life expectancy`), 1) AS Life_Exp, 
+ROUND(AVG(GDP),2) AS GDP
+FROM world_life_expectancy
+GROUP BY Country
+HAVING Life_Exp > 1
+AND GDP > 1
+ORDER BY GDP DESC;
+
+#now we are getting the number of countries above 1500 GDP and their GDP avergages
+#and we are getting the number of countried below 1500 GDP and their GDP averages
+SELECT 
+SUM(CASE
+	WHEN GDP >= 1500 THEN 1
+    ELSE 0 
+END) AS High_GDP_Count,
+AVG(CASE
+	WHEN GDP >= 1500 THEN `Life expectancy`
+    ELSE NULL
+END) AS High_GDP_Life_Expectancy,
+SUM(CASE
+	WHEN GDP <= 1500 THEN 1
+    ELSE 0 
+END) AS Low_GDP_Count,
+AVG(CASE
+	WHEN GDP <= 1500 THEN `Life expectancy`
+    ELSE NULL
+END) AS Low_GDP_Life_Expectancy
+FROM world_life_expectancy;
+
+
+SELECT * 
+FROM world_life_expectancy;
+
+#we are now comparing the average life expectancy of developed and developing countries
+SELECT Status, ROUND(AVG(`Life expectancy`), 1)
+FROM world_life_expectancy
+GROUP BY Status;
+
+#the averages for a developed country are highgly skewed as there are not as many Developed countries as there are Developing 
+SELECT Status, 
+COUNT(DISTINCT Country),
+ROUND(AVG(`Life expectancy`), 1)
+FROM world_life_expectancy
+GROUP BY Status;
+
+#we are looking at the average life expectancies for countries with their average BMIs from the countries that have the highest BMIs
+SELECT Country,
+ROUND(AVG(`Life expectancy`), 1) AS Life_Exp,
+ROUND(AVG(BMI), 1) AS BMI
+FROM world_life_expectancy
+GROUP BY Country
+HAVING Life_Exp > 0
+AND BMI > 0
+ORDER BY BMI DESC
+;
+
+#we are doing the same thing but now looking at the countries with the lowest BMIs
+SELECT Country,
+ROUND(AVG(`Life expectancy`), 1) AS Life_Exp,
+ROUND(AVG(BMI), 1) AS BMI
+FROM world_life_expectancy
+GROUP BY Country
+HAVING Life_Exp > 0
+AND BMI > 0
+ORDER BY BMI
+;
+
+#we are using a rolling toll to get the total amount of Adult Mortality for each country 
+SELECT Country,
+Year,
+`Life expectancy`,
+`Adult Mortality`,
+SUM(`Adult Mortality`) OVER(PARTITION BY Country ORDER BY YEAR) AS Rolling_Total
+FROM world_life_expectancy;
+
+
+SELECT Country,
+Year,
+`Life expectancy`,
+`Adult Mortality`,
+SUM(`Adult Mortality`) OVER(PARTITION BY Country ORDER BY YEAR) AS Rolling_Total
+FROM world_life_expectancy
+WHERE Country LIKE 'United States%'
+;
