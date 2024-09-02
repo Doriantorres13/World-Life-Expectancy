@@ -6,7 +6,7 @@ This project aims to analyze global life expectancy trends using a combination o
 
 The data cleaning process involved several key steps to ensure the accuracy and consistency of the dataset:
 - Identifying and Removing Duplicates: Duplicate records were identified based on the combination of Country and Year columns.    Duplicate entries were removed to prevent data redundancy and maintain data integrity.
-- Handling Missing Values in the Status Column: It was observed that some rows in the Status column were blank. The dataset was   updated by cross-referencing countries' statuses from existing records:
+- Handling Missing Values in the Status Column: It was observed that some rows in the Status column were blank. Cross-referencing countries' statuses updated the dataset from existing records:
     - Countries previously marked as "Developing" were updated accordingly.
 - Filling Missing Life Expectancy Values: The dataset contained a few missing values in the Life expectancy column.
   These missing values were imputed by averaging the life expectancy values from the preceding and following years for the same   country, ensuring the continuity and accuracy of life expectancy trends.
@@ -22,11 +22,11 @@ Several SQL queries were used to explore the cleaned data and extract meaningful
   
 3. Visualization with Tableau
 
-A Tableau dashboard was created to visually present the results of the analysis, making it easier to interpret and communicate the findings. The dashboard includes the following key visualizations:
+A Tableau dashboard was created to visually present the analysis results, making it easier to interpret and communicate the findings. The dashboard includes the following key visualizations:
 - Average Life Expectancy by Year: A line chart showing the trend of average life expectancy across all countries over the        years, highlighting global improvements or declines.
 - GDP and Life Expectancy Correlation: A visualization illustrating the relationship between a country's GDP and its average      life expectancy, showing how wealth correlates with health outcomes.
 - Comparison by Country Status: A bar chart comparing the life expectancy of developed versus developing countries, emphasizing   the disparities due to socioeconomic differences.
 - Minimum and Maximum Life Expectancies Across Countries: A visualization showing the range of life expectancy (minimum and       maximum) for each country, allowing for a comparison of health disparities worldwide.
 - Adult Mortality Rate Analysis: A chart displaying trends in adult mortality rates over time, highlighting changes and           providing insights into mortality factors.
   
-This project showcases a comprehensive approach to analyzing and visualizing life expectancy data, leveraging SQL for data preparation and analysis, and Tableau for effective data visualization. The insights gained from this analysis can inform public health strategies and policy decisions aimed at improving global health outcomes.
+This project showcases a comprehensive approach to analyzing and visualizing life expectancy data, leveraging SQL for data preparation and analysis and Tableau for effective data visualization. The insights gained from this analysis can inform public health strategies and policy decisions to improve global health outcomes.
