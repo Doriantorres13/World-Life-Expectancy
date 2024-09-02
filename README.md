@@ -1,4 +1,4 @@
-# World Life Expectancy Overview
+# World Life Expectancy Summary
 
 This project aims to analyze global life expectancy trends using a combination of data cleaning, SQL-based exploratory data analysis, and visualization through a Tableau dashboard. Below is a summary of the steps and methodologies used throughout the project:
 
