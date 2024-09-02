@@ -1,4 +1,4 @@
-# World_Life_Expectancy_Overview
+# World Life Expectancy Overview
 
 This project aims to analyze global life expectancy trends using a combination of data cleaning, SQL-based exploratory data analysis, and visualization through a Tableau dashboard. Below is a summary of the steps and methodologies used throughout the project:
 
@@ -28,5 +28,7 @@ A Tableau dashboard was created to visually present the analysis results, making
 - Comparison by Country Status: A bar chart comparing the life expectancy of developed versus developing countries, emphasizing   the disparities due to socioeconomic differences.
 - Minimum and Maximum Life Expectancies Across Countries: A visualization showing the range of life expectancy (minimum and       maximum) for each country, allowing for a comparison of health disparities worldwide.
 - Adult Mortality Rate Analysis: A chart displaying trends in adult mortality rates over time, highlighting changes and           providing insights into mortality factors.
-  
+
+Conclusion: 
+
 This project showcases a comprehensive approach to analyzing and visualizing life expectancy data, leveraging SQL for data preparation and analysis and Tableau for effective data visualization. The insights gained from this analysis can inform public health strategies and policy decisions to improve global health outcomes.
